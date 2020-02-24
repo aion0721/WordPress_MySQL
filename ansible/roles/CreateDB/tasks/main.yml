@@ -1,11 +1,11 @@
 ---
 - name : Create Wordpress User
-  command: mysql --user root --execute="CREATE USER 'wpuser'@'localhost' IDENTIFIED BY '{{mysql.user_password}}';"
+  command: mysql --user root --execute="CREATE USER 'wpuser'@'%' IDENTIFIED BY '{{mysql.user_password}}';"
   register: create_dbuser
   failed_when: create_dbuser.rc not in [0, 1]
 
 - name : Grant Wordpress User
-  command: mysql --user root --execute="GRANT ALL ON *.* TO 'wpuser'@'localhost';"
+  command: mysql --user root --execute="GRANT ALL ON *.* TO 'wpuser'@'%';"
   register: grant_dbuser
   failed_when: grant_dbuser.rc not in [0, 1]
 
