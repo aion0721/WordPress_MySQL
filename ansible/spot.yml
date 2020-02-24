@@ -1,4 +1,4 @@
 ---
-- hosts: db
+- hosts: wp
   roles:
-          - CreateDB
+          - Wordpress

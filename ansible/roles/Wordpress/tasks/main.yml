@@ -1,0 +1,9 @@
+---
+- name: Get Wordpress Archive
+  get_url:
+          url=https://ja.wordpress.org/latest-ja.tar.gz
+          dest=/var/www/html
+          timeout=30
+  register: download_tarfile
+- name: print file name
+  debug: var=download_tarfile
