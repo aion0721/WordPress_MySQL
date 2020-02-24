@@ -1,0 +1,12 @@
+---
+- hosts: all
+  roles:
+          - Pip
+- hosts: wp
+  roles:
+          - Apache2
+          - PHP
+- hosts: db
+  roles:
+          - Mysql
+          - CreateDB

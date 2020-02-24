@@ -1,0 +1,5 @@
+---
+- name: Install PHP
+  apt: name=php7.2 update_cache=yes cache_valid_time=3600
+- name: Install PHP-mysql
+  apt: name=php7.2-mysql update_cache=yes cache_valid_time=3600

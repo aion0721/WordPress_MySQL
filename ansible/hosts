@@ -1,0 +1,9 @@
+[default]
+raspnetes01.local
+raspnetes02.local
+
+[wp]
+raspnetes01.local
+
+[db]
+raspnetes02.local
