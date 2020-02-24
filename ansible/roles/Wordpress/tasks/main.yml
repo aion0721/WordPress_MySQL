@@ -1,16 +1,27 @@
 ---
-- name: Install MySQL-Client
-  apt: name=mariadb-client update_cache=yes cache_valid_time=3600
-
-- name: Get Wordpress Archive
-  get_url:
-          url=https://ja.wordpress.org/latest-ja.tar.gz
-          dest=/var/www/html
-          timeout=30
-  register: download_tarfile
-
-- name: Unarchive
-  unarchive:
-          src: "{{download_tarfile.dest}}"
-          dest: /var/www/html
-          remote_src: yes
+##- name: Install MySQL-Client
+##  apt: name=mariadb-client update_cache=yes cache_valid_time=3600
+##
+##- name: Get Wordpress Archive
+##  get_url:
+##          url=https://ja.wordpress.org/latest-ja.tar.gz
+##          dest=/var/www/html
+##          timeout=30
+##  register: download_tarfile
+##
+##- name: Unarchive
+##  unarchive:
+##          src: "{{download_tarfile.dest}}"
+##          dest: /var/www/html
+##          remote_src: yes
+##
+#- name: Get WP-CLI
+#  get_url:
+#          url=https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+#          dest=/usr/local/bin/wp
+#          mode=777
+#          timeout=30
+#  register: download_wpcli
+#
+- name: Generate wp config 
+  shell: wp core config --allow-root --dbname="wordpress" --dbuser="wpuser" --dbpass="password" --dbhost="raspnetes02.local" --path="/var/www/html/wordpress"
