@@ -23,5 +23,25 @@
 #          timeout=30
 #  register: download_wpcli
 #
+
+- name: Download wp core
+  shell: wp core download --allow-root --locale=ja --path="/var/www/html"
+  register: download_wp
+  failed_when: download_wp.rc not in [0, 1]
+
+- name: Change Owner / Group
+  file:
+          path=/var/www/html
+          recurse=yes
+          owner=www-data
+          group=www-data
+
 - name: Generate wp config 
-  shell: wp core config --allow-root --dbname="wordpress" --dbuser="wpuser" --dbpass="password" --dbhost="raspnetes02.local" --path="/var/www/html/wordpress"
+  shell: wp core config --allow-root --dbname="wordpress" --dbuser="wpuser" --dbpass="password" --dbhost="raspnetes02.local" --path="/var/www/html"
+  register: generate_wpconfig
+  failed_when: generate_wpconfig.rc not in [0, 1]
+
+- name: Install Wordpress
+  shell: wp core install --allow-root --url="http://raspnetes01.local/wordpress" --title="TestSite" --admin_user="admin" --admin_password="password" --admin_email="abc@example.com" --path="/var/www/html"
+  register: install_wordpress
+  failed_when: install_wordpress.rc not in [0, 1]
