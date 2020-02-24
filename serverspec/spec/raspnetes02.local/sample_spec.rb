@@ -58,3 +58,4 @@ end
 describe command("mysql -u root mysql --execute='SELECT * FROM user;'") do
   its(:stdout) { should contain ('wpuser') }
 end
+
