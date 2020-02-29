@@ -1,28 +1,23 @@
 ---
-##- name: Install MySQL-Client
-##  apt: name=mariadb-client update_cache=yes cache_valid_time=3600
-##
-##- name: Get Wordpress Archive
-##  get_url:
-##          url=https://ja.wordpress.org/latest-ja.tar.gz
-##          dest=/var/www/html
-##          timeout=30
-##  register: download_tarfile
-##
-##- name: Unarchive
-##  unarchive:
-##          src: "{{download_tarfile.dest}}"
-##          dest: /var/www/html
-##          remote_src: yes
-##
-#- name: Get WP-CLI
-#  get_url:
-#          url=https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-#          dest=/usr/local/bin/wp
-#          mode=777
-#          timeout=30
-#  register: download_wpcli
-#
+- name: Install MySQL-Client
+  apt: name=mariadb-client update_cache=yes cache_valid_time=3600
+
+- name: Get wpcli
+  get_url:
+          url=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          dest=/root/wp-cli.phar
+          timeout=60
+  register: download_wpcli
+
+- name: Setup wpcli
+  copy:
+          remote_src=true
+          src=/root/wp-cli.phar
+          dest=/usr/local/bin/wp
+          owner=root
+          group=root
+          mode=0755
+  register: setup_wpcli
 
 - name: Download wp core
   shell: wp core download --allow-root --locale=ja --path="/var/www/html"
@@ -42,6 +37,6 @@
   failed_when: generate_wpconfig.rc not in [0, 1]
 
 - name: Install Wordpress
-  shell: wp core install --allow-root --url="http://raspnetes01.local/wordpress" --title="TestSite" --admin_user="admin" --admin_password="password" --admin_email="abc@example.com" --path="/var/www/html"
+  shell: wp core install --allow-root --url="http://raspnetes01.local/" --title="TestSite" --admin_user="admin" --admin_password="password" --admin_email="abc@example.com" --path="/var/www/html"
   register: install_wordpress
   failed_when: install_wordpress.rc not in [0, 1]
