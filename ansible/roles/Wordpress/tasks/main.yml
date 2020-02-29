@@ -40,3 +40,8 @@
   shell: wp core install --allow-root --url="http://raspnetes01.local/" --title="TestSite" --admin_user="admin" --admin_password="password" --admin_email="abc@example.com" --path="/var/www/html"
   register: install_wordpress
   failed_when: install_wordpress.rc not in [0, 1]
+
+- name: Delete Index HTML
+  file:
+          path=/var/www/html/index.html
+          state=absent

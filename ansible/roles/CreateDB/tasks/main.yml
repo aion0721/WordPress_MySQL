@@ -21,3 +21,14 @@
   mysql_db:
           name: wordpress
           state: present
+
+- name: Allow Outer Client
+  lineinfile:
+          dest=/etc/mysql/my.cnf
+          line={{ item }}
+  with_items:
+          - '[mysqld]'
+          - 'bind-address = 0.0.0.0'
+
+- name: Restart Mysql Service
+  service: name=mysqld state=restarted
