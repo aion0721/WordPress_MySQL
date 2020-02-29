@@ -19,4 +19,4 @@ ssh pi@${target_name} "sudo ssh-keygen -t rsa -m PEM -N '' -f /root/.ssh/id_rsa"
 
 ssh pi@${target_name} "sudo cp /tmp/id_rsa.pub /root/.ssh/authorized_keys"
 
-rm ./pi@${target_name}
+rm ~/pi@${target_name}
