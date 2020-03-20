@@ -30,3 +30,8 @@ end
 describe port(80) do
   it { should be_listening }
 end
+
+# Checking Database
+describe command("wp user list --allow-root --path='/var/www/html/'") do
+  its(:stdout) { should contain ('admin') }
+end
