@@ -6,5 +6,5 @@
 - name: Install Mysql-Python-Client
   pip:
           name: PyMySQL
-- name: Start Mysql
-  service: name=mysql state=started enabled=yes
+- name: Start MariaDB
+  service: name=mariadb state=started enabled=yes

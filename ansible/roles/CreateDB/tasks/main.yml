@@ -30,5 +30,5 @@
           - '[mysqld]'
           - 'bind-address = 0.0.0.0'
 
-- name: Restart Mysql Service
-  service: name=mysqld state=restarted
+- name: Restart MariaDB Service
+  service: name=mariadb state=restarted
