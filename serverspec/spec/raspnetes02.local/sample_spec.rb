@@ -6,13 +6,10 @@ describe port(22) do
 end
 
 # Checking Installed Mysql
-describe package('mariadb-server') do
-  it { should be_installed }
-end
-
-# Checking Installed Mysql-Client
-describe package('mariadb-client') do
-  it { should be_installed }
+%w{mariadb-server mariadb-client}.each do |pkg|
+  describe package(pkg) do
+    it {should be_installed}
+  end
 end
 
 # Checking Mysql Service Status
